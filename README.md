@@ -46,7 +46,7 @@ Aguarde até que o comando acima tenha como uma das últimas linhas a mensagem _
 docker-compose exec app php artisan migrate --seed
 ```
 
-Muitos dados serão criados (1000 especialistas com 1000 avaliações cada), então essa última etapa será demorada. Enquanto ela executa, a API já estará acessível através do endereço http://localhost:8123/api. Além disso, o endereço http://localhost:8025 provê acesso ao serviço de e-mail _Mailpit_.
+API já estará acessível através do endereço http://localhost:8123/api. Além disso, o endereço http://localhost:8025 provê acesso ao serviço de e-mail _Mailpit_.
 
 # Acesse a API:
 
