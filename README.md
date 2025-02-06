@@ -50,7 +50,7 @@ API já estará acessível através do endereço http://localhost:8123/api. Alé
 
 # Acesse a API:
 
-A API estará disponível em `http://localhost:8123/api/cakes`.
+Disponível em `http://localhost:8123/api/cakes`.
 
 ## Testes
 
