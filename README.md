@@ -48,10 +48,6 @@ docker-compose exec app php artisan migrate --seed
 
 API já estará acessível através do endereço http://localhost:8123/api. Além disso, o endereço http://localhost:8025 provê acesso ao serviço de e-mail _Mailpit_.
 
-# Acesse a API:
-
-Disponível em `http://localhost:8123/api/cakes`.
-
 ## Testes
 
 Para executar os testes automatizados, utilize o comando:
@@ -63,6 +59,17 @@ docker-compose exec app php artisan test
 ## Endpoints da API
 
 A API possui os seguintes endpoints:
+
+# Autenticação:
+
+Realizar autenticação com o payload abaixo para `http://localhost:8123/api/login`.: coletar o token gerado e utilizar como bearer token nas demais requisições.
+
+```json
+{
+  "email": "email@example.com",
+  "password": "12345678"
+}
+```
 
 ### Bolos
 
