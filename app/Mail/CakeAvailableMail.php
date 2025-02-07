@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-se App\Models\Cake;
+use App\Models\Cake;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -10,7 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class CakeAvailableMail extends Mailable
+class CakeAvailableMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

@@ -56,11 +56,17 @@ Para executar os testes automatizados, utilize o comando:
 docker-compose exec app php artisan test
 ```
 
+## Iniciando a fila
+
+```bash
+docker-compose exec app php artisan queue:work
+```
+
 ## Endpoints da API
 
-A API possui os seguintes endpoints:
+API possui os seguintes endpoints:
 
-# Autenticação:
+## Autenticação:
 
 Realizar autenticação com o payload abaixo para `http://localhost:8123/api/login`.: coletar o token gerado e utilizar como bearer token nas demais requisições.
 

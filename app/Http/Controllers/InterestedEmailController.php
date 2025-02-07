@@ -8,7 +8,7 @@ use App\Models\Cake;
 use App\Models\InterestedEmail;
 use App\Jobs\SendEmailToInterestedUsers;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreCakeRequest;
+use App\Http\Requests\StoreInterestedEmailRequest;
 
 class InterestedEmailController extends Controller
 {

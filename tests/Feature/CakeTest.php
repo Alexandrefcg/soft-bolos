@@ -3,21 +3,42 @@
 namespace Tests\Feature;
 
 use App\Models\Cake;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CakeTest extends TestCase
 {
     use RefreshDatabase;
+    protected $token;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create([
+            'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+        ]);
+
+        $response = $this->postJson('/api/login', [
+            'email' => 'test@example.com',
+            'password' => 'password',
+        ]);
+
+        $this->token = $response->json();
+    }
 
     public function test_can_list_cakes()
     {
         Cake::factory()->count(3)->create();
 
-        $response = $this->getJson('/api/cakes');
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $this->token,
+        ])->getJson('/api/cakes');
 
         $response->assertStatus(200)
-                 ->assertJsonCount(3);
+                 ->assertJsonCount(3, 'data');
     }
 
     public function test_can_create_cake()
@@ -29,9 +50,13 @@ class CakeTest extends TestCase
             'quantity' => 10,
         ];
 
-        $response = $this->postJson('/api/cakes', $cakeData);
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $this->token,
+        ])->postJson('/api/cakes', $cakeData);
 
         $response->assertStatus(201)
-                 ->assertJson($cakeData);
+                 ->assertJson([
+                     'data' => $cakeData
+                 ]);
     }
 }
