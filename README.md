@@ -188,5 +188,11 @@ O projeto segue o padrão MVC e está organizado da seguinte forma:
 ## Escalabilidade e Performance
 
 - **Filas**: O envio de e-mails é feito de forma assíncrona utilizando filas, garantindo que a aplicação não seja bloqueada por processos demorados.
-- **Redis**: Utilizado para cache e filas, melhorando o tempo de resposta da API.
+- **Redis**: Poderá ser utilizado para cache entre outras funcionalidades, melhorando o tempo de resposta da API.
 - **Docker**: Facilita a escalabilidade e o deploy da aplicação em diferentes ambientes.
+- **Load Balance**: Foi criado duas instancias da aplicação em um load balancer, para que aplicação possa lidar com um grande volume de requisições simultaneamente.
+
+## Pipeline
+
+- **PHP Codesniffer**: Para análise estática.
+- **PHP Stan**: Para verificar padrões de código.

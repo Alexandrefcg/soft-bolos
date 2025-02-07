@@ -10,6 +10,7 @@ use Tests\TestCase;
 class CakeTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $token;
 
     protected function setUp(): void

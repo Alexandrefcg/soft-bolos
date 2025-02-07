@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<ruleset name="PSR12">
+    <description>Padrão de codificação PSR-12 para o projeto.</description>
+    <rule ref="PSR12"/>
+    <file>app/</file>
+    <file>tests/</file>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/storage/*</exclude-pattern>
+    <exclude-pattern>*/database/*</exclude-pattern>
+    <exclude-pattern>*/bootstrap/*</exclude-pattern>
+    <exclude-pattern>*/public/*</exclude-pattern>
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>tests/*</exclude-pattern>
+    </rule>
+
+    <arg name="colors"/>
+    <arg name="report-full"/>
+    <arg name="report-summary"/>
+</ruleset>
