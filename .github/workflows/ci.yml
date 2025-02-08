@@ -83,7 +83,7 @@ jobs:
 
       - name: Aguardar banco de dados estar pronto
         run: |
-          until docker-compose exec app mysqladmin ping -h"mysql" --silent; do
+          until docker-compose run --rm mysql mysqladmin ping -h"mysql" --silent; do
             echo "Aguardando MySQL..."
             sleep 5
           done
