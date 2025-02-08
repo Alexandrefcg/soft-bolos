@@ -72,6 +72,12 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
 
+      - name: Iniciar contêineres com Docker Compose
+        run: docker-compose up -d
+
+      - name: Verificar se o serviço app está em execução
+        run: docker-compose ps | grep app
+
       - name: Instalar dependências do Composer
         run: composer install --prefer-dist --no-progress --no-suggest
 
