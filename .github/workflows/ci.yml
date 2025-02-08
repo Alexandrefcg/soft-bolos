@@ -83,7 +83,7 @@ jobs:
 
       - name: Aguardar banco de dados estar pronto
         run: |
-          until docker-compose run --rm mysql mysqladmin ping -h"mysql" --silent; do
+          until docker-compose run --rm db mysqladmin ping -h"db" --silent; do
             echo "Aguardando MySQL..."
             sleep 5
           done
@@ -100,4 +100,4 @@ jobs:
       - name: Upload Relatório de Cobertura
         uses: codecov/codecov-action@v3
         with:
-          file: tests/coverage/clover.xml
+          file: tests/coverage/clover.xml   
