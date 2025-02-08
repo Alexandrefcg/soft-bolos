@@ -65,7 +65,7 @@ jobs:
           php-version: '8.2'
           tools: composer
           coverage: pcov
-          
+
       - name: Instalar Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -74,6 +74,22 @@ jobs:
 
       - name: Instalar dependências do Composer
         run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Verificar estado dos containers
+        run: docker-compose ps
+
+      - name: Verificar logs do container app
+        run: docker-compose logs app
+
+      - name: Aguardar banco de dados estar pronto
+        run: |
+          until docker-compose exec app mysqladmin ping -h"mysql" --silent; do
+            echo "Aguardando MySQL..."
+            sleep 5
+          done
+
+      - name: Reiniciar os containers antes dos testes
+        run: docker-compose restart
 
       - name: Executar Migrations
         run: docker-compose exec app php artisan migrate --force
