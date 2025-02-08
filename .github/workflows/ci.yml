@@ -54,7 +54,17 @@ jobs:
   test:
     name: Execução dos Testes
     runs-on: ubuntu-latest
-    needs: [lint, build]
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: bolos
+          MYSQL_USER: alexandre
+          MYSQL_PASSWORD: alexandre
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
@@ -66,20 +76,25 @@ jobs:
           tools: composer
           coverage: pcov
 
-      - name: Instalar Docker Compose
+      - name: Configurar variáveis de ambiente
         run: |
-          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version
-
-      - name: Iniciar contêineres com Docker Compose
-        run: docker-compose up -d
-
-      - name: Verificar se o serviço app está em execução
-        run: docker-compose ps | grep app
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=127.0.0.1" >> .env
+          echo "DB_PORT=3306" >> .env
+          echo "DB_DATABASE=bolos" >> .env
+          echo "DB_USERNAME=alexandre" >> .env
+          echo "DB_PASSWORD=alexandre" >> .env
 
       - name: Instalar dependências do Composer
         run: composer install --prefer-dist --no-progress --no-suggest
 
+      - name: Executar Migrations
+        run: php artisan migrate --force
+
       - name: Executar Testes
-        run: docker-compose exec app php artisan test
+        run: php artisan test
+
+      - name: Upload Relatório de Cobertura
+        uses: codecov/codecov-action@v3
+        with:
+          file: tests/coverage/clover.xml
