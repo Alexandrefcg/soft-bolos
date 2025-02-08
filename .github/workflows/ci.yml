@@ -30,7 +30,7 @@ jobs:
         run: vendor/bin/phpstan analyse
 
       - name: Executar PHP_CodeSniffer (Verificação de Padrões)
-        run: vendor/bin/phpcs --standard=PSR12 app/ tests/
+        run: vendor/bin/phpcs
 
   build:
     name: Build dos Containers
