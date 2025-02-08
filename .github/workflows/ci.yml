@@ -82,9 +82,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Executar Testes
-        run: docker-compose exec app php artisan test --coverage
-
-      - name: Upload Relatório de Cobertura
-        uses: codecov/codecov-action@v3
-        with:
-          file: tests/coverage/clover.xml
+        run: docker-compose exec app php artisan test
