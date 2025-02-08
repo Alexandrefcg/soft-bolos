@@ -156,8 +156,6 @@ Abra o navegador e acesse `http://localhost:8025`.
 
 ## Estrutura do Projeto
 
-O projeto segue o padrão MVC e está organizado da seguinte forma:
-
 - **Models**:
   - `Cake` e `InterestedEmail` para gerenciar os dados de bolos e e-mails de interessados.
 
@@ -174,7 +172,7 @@ O projeto segue o padrão MVC e está organizado da seguinte forma:
   - Definição das tabelas `cakes` e `interested_emails`.
 
 - **Tests**:
-  - Testes automatizados para garantir a qualidade do código.
+  - Testes.
 
 ## Tecnologias Utilizadas
 
@@ -185,14 +183,17 @@ O projeto segue o padrão MVC e está organizado da seguinte forma:
 - **Mailpit** - Simulação de envio de e-mails.
 - **PHPUnit** - Testes automatizados.
 
-## Escalabilidade e Performance
+## Escalabilidade & Performance
 
 - **Filas**: O envio de e-mails é feito de forma assíncrona utilizando filas, garantindo que a aplicação não seja bloqueada por processos demorados.
 - **Redis**: Poderá ser utilizado para cache entre outras funcionalidades, melhorando o tempo de resposta da API.
 - **Docker**: Facilita a escalabilidade e o deploy da aplicação em diferentes ambientes.
-- **Load Balance**: Foi criado duas instancias da aplicação em um load balancer, para que aplicação possa lidar com um grande volume de requisições simultaneamente.
-
-## Pipeline
-
+- **Load Balancer**: Foi criado duas instancias da aplicação em um load balancer, para que aplicação possa lidar com um grande volume de requisições simultaneamente.
 - **PHP Codesniffer**: Para análise estática.
+```bash
+vendor/bin/phpstan analyse
+```
 - **PHP Stan**: Para verificar padrões de código.
+```bash
+vendor/bin/phpcs
+```
