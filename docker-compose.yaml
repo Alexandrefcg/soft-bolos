@@ -8,8 +8,6 @@ services:
     working_dir: /app
     depends_on:
       - database
-    command: bash -c "chmod -R 775 storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache && php-fpm"
-
   app2:
     build:
       context: .
@@ -19,8 +17,6 @@ services:
     working_dir: /app
     depends_on:
       - database
-    command: bash -c "chmod -R 775 storage bootstrap/cache && chown -R www-data:www-data storage bootstrap/cache && php-fpm"
-
   web:
     image: nginx:1.25
     ports:
@@ -31,7 +27,6 @@ services:
     depends_on:
       - app
       - app2
-
   database:
     image: mysql:8
     environment:
@@ -45,12 +40,10 @@ services:
       - "3306:3306"
     volumes:
       - ./infra/mysql:/var/lib/mysql
-
   mailpit:
     image: axllent/mailpit:v1.6.13
     ports:
       - "1025:1025"
       - "8025:8025"
-
   cache:
     image: redis:7
