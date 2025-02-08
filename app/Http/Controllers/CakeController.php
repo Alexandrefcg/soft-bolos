@@ -9,29 +9,29 @@ use App\Http\Requests\StoreCakeRequest;
 
 class CakeController extends Controller
 {
-    public function index()
+    public function index(): \Illuminate\Http\Resources\Json\AnonymousResourceCollection
     {
         return CakeResource::collection(Cake::all());
     }
 
-    public function store(StoreCakeRequest $request)
+    public function store(StoreCakeRequest $request): CakeResource
     {
         $cake = Cake::create($request->validated());
         return new CakeResource($cake);
     }
 
-    public function show(Cake $cake)
+    public function show(Cake $cake): CakeResource
     {
         return new CakeResource($cake);
     }
 
-    public function update(StoreCakeRequest $request, Cake $cake)
+    public function update(StoreCakeRequest $request, Cake $cake): CakeResource
     {
         $cake->update($request->validated());
         return new CakeResource($cake);
     }
 
-    public function destroy(Cake $cake)
+    public function destroy(Cake $cake): \Illuminate\Http\Response
     {
         $cake->delete();
         return response()->noContent();

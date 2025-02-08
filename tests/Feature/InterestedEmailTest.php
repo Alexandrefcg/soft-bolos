@@ -3,7 +3,6 @@
 namespace Tests\Feature;
 
 use App\Models\Cake;
-use App\Models\InterestedEmail;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -12,7 +11,8 @@ class InterestedEmailTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $token;
+    protected string $token;
+    protected User $user;
 
     protected function setUp(): void
     {
@@ -31,7 +31,7 @@ class InterestedEmailTest extends TestCase
         $this->token = $response->json();
     }
 
-    public function test_can_register_interested_email()
+    public function test_can_register_interested_email(): void
     {
         $cake = Cake::factory()->create();
 
@@ -45,6 +45,6 @@ class InterestedEmailTest extends TestCase
         ])->postJson('/api/interested-emails', $emailData);
 
         $response->assertStatus(201)
-                ->assertJson(['message' => 'E-mail registrado com sucesso!']);
+                 ->assertJson(['message' => 'E-mail registrado com sucesso!']);
     }
 }

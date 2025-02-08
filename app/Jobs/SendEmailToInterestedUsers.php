@@ -20,14 +20,14 @@ class SendEmailToInterestedUsers implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    protected $cake;
+    protected Cake $cake;
 
     public function __construct(Cake $cake)
     {
         $this->cake = $cake;
     }
 
-    public function handle()
+    public function handle(): void
     {
         $emails = $this->cake->interestedEmails->pluck('email')->toArray();
 

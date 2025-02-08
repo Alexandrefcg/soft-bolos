@@ -1,22 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-namespace App\Http\Controllers;
 
 use App\Models\Cake;
 use App\Models\InterestedEmail;
 use App\Jobs\SendEmailToInterestedUsers;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreInterestedEmailRequest;
 
 class InterestedEmailController extends Controller
 {
-    public function store(StoreInterestedEmailRequest $request)
+    public function store(Request $request): \Illuminate\Http\JsonResponse
     {
-        $interestedEmail = InterestedEmail::create($request->validated());
+        $interestedEmail = InterestedEmail::create($request->all());
+        $cake = Cake::find($request->input('cake_id'));
 
-        $cake = Cake::find($request->cake_id);
-        if ($cake->quantity > 0) {
+        if ($cake instanceof Cake && $cake->quantity > 0) {
             SendEmailToInterestedUsers::dispatch($cake);
         }
 

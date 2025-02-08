@@ -15,9 +15,7 @@ class CakeAvailableMail extends Mailable implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(private string $url)
-    {
-    }
+    public function __construct(public Cake $cake) {}
 
     public function envelope(): Envelope
     {

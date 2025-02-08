@@ -11,7 +11,8 @@ class CakeTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $token;
+    protected string $token;
+    protected User $user;
 
     protected function setUp(): void
     {
@@ -30,7 +31,7 @@ class CakeTest extends TestCase
         $this->token = $response->json();
     }
 
-    public function test_can_list_cakes()
+    public function test_can_list_cakes(): void
     {
         Cake::factory()->count(3)->create();
 
@@ -42,7 +43,7 @@ class CakeTest extends TestCase
                  ->assertJsonCount(3, 'data');
     }
 
-    public function test_can_create_cake()
+    public function test_can_create_cake(): void
     {
         $cakeData = [
             'name' => 'Chocolate Cake',
@@ -56,8 +57,6 @@ class CakeTest extends TestCase
         ])->postJson('/api/cakes', $cakeData);
 
         $response->assertStatus(201)
-                 ->assertJson([
-                     'data' => $cakeData
-                 ]);
+                 ->assertJson(['data' => $cakeData]);
     }
 }
