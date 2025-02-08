@@ -54,7 +54,7 @@ jobs:
   test:
     name: Execução dos Testes
     runs-on: ubuntu-latest
-    needs: [lint, build]
+    needs: [lint, build]  # Depende das etapas lint e build, se existirem
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
@@ -66,33 +66,8 @@ jobs:
           tools: composer
           coverage: pcov
 
-      - name: Instalar Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose --version    
-
       - name: Instalar dependências do Composer
         run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Verificar estado dos containers
-        run: docker-compose ps
-
-      - name: Verificar logs do container app
-        run: docker-compose logs app
-
-      - name: Aguardar banco de dados estar pronto
-        run: |
-          until docker-compose run --rm db mysqladmin ping -h"db" --silent; do
-            echo "Aguardando MySQL..."
-            sleep 5
-          done
-
-      - name: Reiniciar os containers antes dos testes
-        run: docker-compose restart
-
-      - name: Executar Migrations
-        run: docker-compose exec app php artisan migrate --force
 
       - name: Executar Testes
         run: docker-compose exec app php artisan test --coverage
@@ -100,4 +75,4 @@ jobs:
       - name: Upload Relatório de Cobertura
         uses: codecov/codecov-action@v3
         with:
-          file: tests/coverage/clover.xml   
+          file: tests/coverage/clover.xml
